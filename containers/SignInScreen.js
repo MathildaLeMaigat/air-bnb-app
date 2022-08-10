@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/core";
 import {
   Text,
   TextInput,
@@ -9,7 +8,6 @@ import {
 } from "react-native";
 import { useState } from "react";
 import axios from "axios";
-import Constants from "expo-constants";
 
 import CustomInput from "./components/CustomInput";
 import logo from "../assets/img/logo.png";
