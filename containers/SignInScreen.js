@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import CustomInput from "./components/CustomInput";
 import logo from "../assets/img/logo.png";
@@ -19,16 +20,28 @@ export default function SignInScreen({ setToken, navigation }) {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
-    const response = await axios.post(
-      "https://express-airbnb-api.herokuapp.com/user/log_in",
-      {
-        email: email,
-        password: password,
+    try {
+      const response = await axios.post(
+        "https://express-airbnb-api.herokuapp.com/user/log_in",
+        {
+          email: email,
+          password: password,
+        }
+      );
+      console.log(response.data);
+      if (response.data.token) {
+        alert("Inscription réussie");
       }
-    );
-    console.log(response.data);
-    if (response.data.token) {
-      alert("Inscription réussie");
+      const value = await AsyncStorage.getItem({ password });
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      if (error.response.data) {
+        setErrorMessage(error.response.data.error);
+      }
     }
   };
 

@@ -1,6 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { TextInput } from "react-native-paper";
+import { StyleSheet, Text, View, TextInput } from "react-native";
 
 export default function CustomInput({
   placeholder,
@@ -13,7 +12,7 @@ export default function CustomInput({
       style={styles.input}
       placeholder={placeholder}
       value={value}
-      onChange={(text) => setState(text)}
+      onChangeText={(text) => setState(text)}
       secureTextEntry={password ? true : false}
     />
   );

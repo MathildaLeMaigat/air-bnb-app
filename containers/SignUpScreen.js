@@ -88,14 +88,14 @@ export default function SignUpScreen({ setToken, navigation }) {
         placeholder={"password"}
         value={password}
         setState={setPassword}
-        password
+        password={password}
       />
 
       <CustomInput
         placeholder={"confirm password"}
         value={confirmPassword}
         setState={setConfirmPassword}
-        password
+        password={password}
       />
 
       {errorMessage ? (
