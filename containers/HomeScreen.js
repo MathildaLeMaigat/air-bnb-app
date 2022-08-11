@@ -61,7 +61,7 @@ export default function HomeScreen() {
           return (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Room", { id: item._id });
+                navigation.navigate("Room", { roomId: item._id });
               }}
             >
               <ImageBackground
