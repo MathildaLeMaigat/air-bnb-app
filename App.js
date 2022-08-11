@@ -99,7 +99,12 @@ export default function App() {
                         {(props) => <HomeScreen {...props} />}
                       </Stack.Screen>
 
-                      <Stack.Screen name="Room">
+                      <Stack.Screen
+                        name="Room"
+                        options={{
+                          headerLeft: () => <ArrowBack />,
+                        }}
+                      >
                         {(props) => <RoomScreen {...props} />}
                       </Stack.Screen>
 

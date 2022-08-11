@@ -13,7 +13,6 @@ import {
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Entypo } from "@expo/vector-icons";
-import RoomScreen from "./RoomScreen";
 
 export default function HomeScreen() {
   const [data, setData] = useState();
@@ -101,6 +100,8 @@ const styles = StyleSheet.create({
   indicator: {
     flex: 1,
     justifyContent: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
 
   imageBack: {
