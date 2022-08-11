@@ -95,21 +95,13 @@ export default function App() {
                     <Stack.Navigator
                       screenOptions={{ headerTitle: () => <LogoHeader /> }}
                     >
-                      <Stack.Screen
-                        name="Home"
-                        // options={{
-                        //   title: "My App",
-                        //   headerStyle: { backgroundColor: "red" },
-                        //   headerTitleStyle: { color: "white" },
-                        // }}
-                      >
+                      <Stack.Screen name="Home">
                         {(props) => <HomeScreen {...props} />}
                       </Stack.Screen>
 
-                      <Stack.Screen
-                        name="Room"
-                        component={RoomScreen}
-                      ></Stack.Screen>
+                      <Stack.Screen name="Room">
+                        {(props) => <RoomScreen {...props} />}
+                      </Stack.Screen>
 
                       {/* <Stack.Screen
                         name="Profile"

@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  useNavigation,
   ActivityIndicator,
 } from "react-native";
 import { useState, useEffect } from "react";
@@ -40,7 +39,7 @@ const RoomScreen = ({ route, navigation }) => {
     </View>
   ) : (
     <View style={styles.container}>
-      <Text>This is the RoomScreen component:{route.params.roomId}</Text>
+      <Text>This is the RoomScreen component:{data.roomId}</Text>
     </View>
   );
 };
