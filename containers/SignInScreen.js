@@ -1,11 +1,4 @@
-import {
-  Text,
-  TextInput,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-} from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useState } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -28,14 +21,10 @@ export default function SignInScreen({ setToken, navigation }) {
           password: password,
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       if (response.data.token) {
+        setToken(response.data.token);
         alert("Inscription réussie");
-      }
-      const value = await AsyncStorage.getItem({ password });
-      if (value !== null) {
-        // We have data!!
-        console.log(value);
       }
     } catch (error) {
       console.log(error.response.data);
@@ -62,7 +51,15 @@ export default function SignInScreen({ setToken, navigation }) {
         password
       />
 
-      <TouchableOpacity style={styles.signIn} onPress={handleSubmit}>
+      <TouchableOpacity
+        style={styles.signIn}
+        onPress={handleSubmit}
+        // onPress={async () => {
+        //   await AsyncStorage.setItem("password", password);
+        //   const getPassword = await AsyncStorage.getItem("password", password);
+        //   console.log(getPassword);
+        // }}
+      >
         <Text>Sign In</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -78,6 +75,7 @@ export default function SignInScreen({ setToken, navigation }) {
 
 const styles = StyleSheet.create({
   logo: {
+    marginTop: 70,
     height: 150,
     width: 100,
   },

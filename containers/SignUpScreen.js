@@ -41,6 +41,7 @@ export default function SignUpScreen({ setToken, navigation }) {
           );
           console.log(response.data);
           if (response.data.token) {
+            setToken(response.data.token);
             alert("Inscription réussie");
           }
         } catch (error) {
@@ -88,14 +89,14 @@ export default function SignUpScreen({ setToken, navigation }) {
         placeholder={"password"}
         value={password}
         setState={setPassword}
-        password={password}
+        password
       />
 
       <CustomInput
         placeholder={"confirm password"}
         value={confirmPassword}
         setState={setConfirmPassword}
-        password={password}
+        password
       />
 
       {errorMessage ? (
@@ -138,6 +139,7 @@ const styles = StyleSheet.create({
   },
 
   logo: {
+    marginTop: 70,
     height: 150,
     width: 100,
   },

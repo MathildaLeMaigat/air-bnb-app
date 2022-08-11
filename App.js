@@ -7,6 +7,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // Icons
 import { Ionicons } from "@expo/vector-icons";
 
+// Import Components
+import LogoHeader from "./containers/components/LogoHeader";
+import ArrowBack from "./containers/components/ArrowBack";
+
 // Screens
 import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
@@ -14,6 +18,7 @@ import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
 import SplashScreen from "./containers/SplashScreen";
+import RoomScreen from "./containers/RoomScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -59,10 +64,10 @@ export default function App() {
         {userToken === null ? (
           // No token found, user isn't signed in
           <>
-            <Stack.Screen name="SignIn">
+            <Stack.Screen name="SignIn" options={{ headerShown: false }}>
               {(props) => <SignInScreen {...props} setToken={setToken} />}
             </Stack.Screen>
-            <Stack.Screen name="SignUp">
+            <Stack.Screen name="SignUp" options={{ headerShown: false }}>
               {(props) => <SignUpScreen {...props} setToken={setToken} />}
             </Stack.Screen>
           </>
@@ -87,26 +92,30 @@ export default function App() {
                   }}
                 >
                   {() => (
-                    <Stack.Navigator>
+                    <Stack.Navigator
+                      screenOptions={{ headerTitle: () => <LogoHeader /> }}
+                    >
                       <Stack.Screen
                         name="Home"
-                        options={{
-                          title: "My App",
-                          headerStyle: { backgroundColor: "red" },
-                          headerTitleStyle: { color: "white" },
-                        }}
+                        // options={{
+                        //   title: "My App",
+                        //   headerStyle: { backgroundColor: "red" },
+                        //   headerTitleStyle: { color: "white" },
+                        // }}
                       >
                         {() => <HomeScreen />}
                       </Stack.Screen>
-
-                      <Stack.Screen
+                      <Stack.Screen name="Room">
+                        {() => <RoomScreen />}
+                      </Stack.Screen>
+                      {/* <Stack.Screen
                         name="Profile"
                         options={{
                           title: "User Profile",
                         }}
                       >
                         {() => <ProfileScreen />}
-                      </Stack.Screen>
+                      </Stack.Screen> */}
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
