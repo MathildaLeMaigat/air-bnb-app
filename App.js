@@ -103,11 +103,14 @@ export default function App() {
                         //   headerTitleStyle: { color: "white" },
                         // }}
                       >
-                        {() => <HomeScreen />}
+                        {(props) => <HomeScreen {...props} />}
                       </Stack.Screen>
-                      <Stack.Screen name="Room">
-                        {() => <RoomScreen />}
-                      </Stack.Screen>
+
+                      <Stack.Screen
+                        name="Room"
+                        component={RoomScreen}
+                      ></Stack.Screen>
+
                       {/* <Stack.Screen
                         name="Profile"
                         options={{

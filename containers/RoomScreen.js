@@ -5,17 +5,18 @@ import {
   View,
   TouchableOpacity,
   useNavigation,
+  ActivityIndicator,
 } from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const RoomScreen = ({ route }) => {
+const RoomScreen = ({ route, navigation }) => {
+  console.log(route);
   const { roomId } = route.params;
 
-  const navigation = useNavigation();
   const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +25,8 @@ const RoomScreen = ({ route }) => {
           `https://express-airbnb-api.herokuapp.com/rooms/${roomId}`
         );
         console.log(response.data);
+        setData(response.data);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -31,7 +34,11 @@ const RoomScreen = ({ route }) => {
     };
   }, []);
 
-  return (
+  return isLoading ? (
+    <View style={styles.indicator}>
+      <ActivityIndicator size={"large"} />
+    </View>
+  ) : (
     <View style={styles.container}>
       <Text>This is the RoomScreen component:{route.params.roomId}</Text>
     </View>
@@ -41,7 +48,12 @@ const RoomScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    backgroundColor: "white",
+    paddingHorizontal: 10,
+  },
+
+  indicator: {
+    flex: 1,
     justifyContent: "center",
   },
 });
