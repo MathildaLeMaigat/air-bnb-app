@@ -96,12 +96,15 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "white", paddingHorizontal: 10 },
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
   indicator: {
     flex: 1,
     justifyContent: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 10,
   },
 
   imageBack: {

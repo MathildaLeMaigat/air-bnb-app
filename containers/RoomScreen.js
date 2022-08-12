@@ -42,26 +42,26 @@ const RoomScreen = ({ route, navigation }) => {
       }
     };
 
-    const getPermission = async () => {
-      try {
-        // Demander à l'utilisateur la permission de récupérer sa localisation
-        const { status } = await Location.requestForegroundPermissionsAsync();
-        // console.log(status);
-        if (status === "granted") {
-          // Récupérer sa latitude et sa longitude
-          const location = await Location.getCurrentPositionAsync();
-          //   console.log(location);
-          setLatitude(location.coords.latitude);
-          setLongitude(location.coords.longitude);
-        } else {
-          alert("Permission refusee");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    // const getPermission = async () => {
+    //   try {
+    //     // Demander à l'utilisateur la permission de récupérer sa localisation
+    //     const { status } = await Location.requestForegroundPermissionsAsync();
+    //     // console.log(status);
+    //     if (status === "granted") {
+    //       // Récupérer sa latitude et sa longitude
+    //       const location = await Location.getCurrentPositionAsync();
+    //       //   console.log(location);
+    //       setLatitude(location.coords.latitude);
+    //       setLongitude(location.coords.longitude);
+    //     } else {
+    //       alert("Permission refusee");
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
 
-    getPermission();
+    // getPermission();
     fetchData();
   }, []);
 
@@ -123,13 +123,13 @@ const RoomScreen = ({ route, navigation }) => {
             {data.description}
           </Text>
         </TouchableOpacity>
-
+        {/* Map View */}
         <View>
           <MapView
             showsUserLocation={true}
             initialRegion={{
-              latitude: 48.856614,
-              longitude: 2.3522219,
+              latitude: data.location[1],
+              longitude: data.location[0],
               latitudeDelta: 0.1,
               longitudeDelta: 0.1,
             }}
