@@ -9,32 +9,51 @@ const AroundMeScreen = () => {
   // States
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getPermissionAndLocationAndFetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://express-airbnb-api.herokuapp.com/rooms/around"
-        );
-        // console.log(response.data);
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        // console.log(status);
+        let response;
+        if (status === "granted") {
+          const location = await Location.getCurrentPositionAsync();
+          // console.log(location);
+          setLatitude(location.coords.latitude);
+          setLongitude(location.coords.longitude);
+          response = await axios.get(
+            `https://express-airbnb-api.herokuapp.com/rooms/around?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
+          );
+          console.log(response.data);
+          // setData(response.data);
+          // setIsLoading(false);
+        } else {
+          response = await axios.get(
+            "https://express-airbnb-api.herokuapp.com/rooms/around"
+          );
+          // console.log(response.data);
+        }
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error.message);
       }
     };
-    fetchData();
+    getPermissionAndLocationAndFetchData();
   }, []);
 
   return isLoading ? (
     <ActivityIndicator />
   ) : (
     <MapView
+      showsUserLocation={true}
       style={styles.map}
       provider={PROVIDER_GOOGLE}
       initialRegion={{
-        latitude: 48.866667,
-        longitude: 2.333333,
+        latitude: latitude ? latitude : 48.866667,
+        longitude: longitude ? longitude : 2.333333,
         latitudeDelta: 0.2,
         longitudeDelta: 0.2,
       }}
