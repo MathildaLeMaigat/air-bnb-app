@@ -1,4 +1,3 @@
-import React from "react";
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { useState, useEffect } from "react";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
@@ -17,26 +16,26 @@ const AroundMeScreen = () => {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
         // console.log(status);
-        let response;
+
         if (status === "granted") {
           const location = await Location.getCurrentPositionAsync();
           // console.log(location);
           setLatitude(location.coords.latitude);
           setLongitude(location.coords.longitude);
-          response = await axios.get(
+          const response = await axios.get(
             `https://express-airbnb-api.herokuapp.com/rooms/around?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
           );
           console.log(response.data);
-          // setData(response.data);
-          // setIsLoading(false);
+          setData(response.data);
+          setIsLoading(false);
         } else {
-          response = await axios.get(
+          const response = await axios.get(
             "https://express-airbnb-api.herokuapp.com/rooms/around"
           );
           // console.log(response.data);
+          setData(response.data);
+          setIsLoading(false);
         }
-        setData(response.data);
-        setIsLoading(false);
       } catch (error) {
         console.log(error.message);
       }
